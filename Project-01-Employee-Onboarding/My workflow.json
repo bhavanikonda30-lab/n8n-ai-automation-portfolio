@@ -1,0 +1,145 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        32,
+        0
+      ],
+      "id": "9f2eb9e9-acca-4a7c-9eca-65cfb36accaa",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"employeeName\": \"Hanshith\",\n  \"employeeID\": EMP001,\n  \"email\":\"hanshith.k@gmail.com\",\n  \"joiningDate\":\"2024-11-21\"\n}\n",
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        256,
+        0
+      ],
+      "id": "385448f2-9405-45aa-8b2a-46c39bb93c6f",
+      "name": "Employee Details"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \n  \"employeeName\": \"Hanshith\",\n  \"employeeId\": \"EMP001\",\n  \"email\": \"hanshith.k@gmail.com\",\n  \"joiningDate\": \"2024-11-21\",\n  \"department\": \"IT\",\n  \"manager\": \"bhavani\",\n  \"location\": \"Tirupati\"\n\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        448,
+        0
+      ],
+      "id": "3963607a-820f-4c73-a9d5-980c74ad3bf5",
+      "name": "Department Details"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n   \"employeeName\": \"Hanshith\",\n  \"employeeId\": \"EMP001\",\n  \"email\": \"hanshith.k@gmail.com\",\n  \"joiningDate\": \"2024-11-21\",\n  \"department\": \"IT\",\n  \"manager\": \"bhavani\",\n  \"location\": \"Tirupati\",\n  \"status\": \"Active\",\n  \"laptopAssigned\": \"Yes\",\n  \"onboardingCompleted\": \"No\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        656,
+        0
+      ],
+      "id": "3268e85f-e025-489d-aff7-4a60fd83c61c",
+      "name": "Employee Status"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0f912281-da99-4e26-adb7-ef75a8ea65f2",
+              "name": "={{ \"Welcome \" + $json.employeeName + \" to the \" + $json.department + \" team!\" }}",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        864,
+        0
+      ],
+      "id": "83f2efc3-5e7d-4f71-9f0f-be9f17f1bb4e",
+      "name": "Welcome Message"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Employee Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Employee Details": {
+      "main": [
+        [
+          {
+            "node": "Department Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Department Details": {
+      "main": [
+        [
+          {
+            "node": "Employee Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Employee Status": {
+      "main": [
+        [
+          {
+            "node": "Welcome Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "f6667449-5087-4c84-8272-7ab10e5f4e1e",
+  "meta": {
+    "instanceId": "df90ae04ddd986792c0a3001b91a21bd70fc589ecbafd22fa3754354a603c075"
+  },
+  "nodeGroups": [],
+  "id": "gDobsOR98fJvJftC",
+  "tags": []
+}
