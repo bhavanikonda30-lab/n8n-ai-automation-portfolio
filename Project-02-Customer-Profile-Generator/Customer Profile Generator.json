@@ -1,0 +1,161 @@
+{
+  "name": "Customer Profile Generator",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "032d39cc-8dab-458a-9a36-52af5f26bf93",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"firstName\": \"Bhavani\",\n  \"lastName\": \"Konda\",\n  \"city\": \"Hyderabad\",\n  \"department\": \"Automation\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "b595733e-ac08-4f26-95b0-fea6656400c4",
+      "name": "Customer Details"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4889d799-019a-404c-b2e4-76d47b53cc02",
+              "name": "fullName",
+              "value": "={{ $json.firstName + \" \" + $json.lastName }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "d2df83cc-0192-4781-8955-604f7a3f34f5",
+      "name": "Generate Full name"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "032f2d6f-744b-4e64-bce9-6f49f0c5c443",
+              "name": "email",
+              "value": "={{ $json.firstName.toLowerCase() + \".\" + $json.lastName.toLowerCase() + \"@company.com\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        624,
+        0
+      ],
+      "id": "be67470c-32ac-48f9-b682-099a9b7f1aa8",
+      "name": "Generate Email"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a30ba4be-dd74-41d0-bfed-83041c2c95b3",
+              "name": "mesaage",
+              "value": "={{ \"Welcome \" + $json.fullName + \" to the \" + $json.department + \" department!\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        832,
+        0
+      ],
+      "id": "43b2a604-cf52-4ffc-8b08-45d3e924a6f5",
+      "name": "Welcome mesaage Generator"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Customer Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer Details": {
+      "main": [
+        [
+          {
+            "node": "Generate Full name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Full name": {
+      "main": [
+        [
+          {
+            "node": "Generate Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Email": {
+      "main": [
+        [
+          {
+            "node": "Welcome mesaage Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "e07214fb-4487-4cd3-aa7c-b2c63f033d60",
+  "meta": {
+    "instanceId": "df90ae04ddd986792c0a3001b91a21bd70fc589ecbafd22fa3754354a603c075"
+  },
+  "nodeGroups": [],
+  "id": "F2u1OZZyl6pElYTW",
+  "tags": []
+}
