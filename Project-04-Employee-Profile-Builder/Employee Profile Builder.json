@@ -1,0 +1,191 @@
+{
+  "name": "Employee Profile Builder",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        0
+      ],
+      "id": "abcfeae0-9d33-4f62-a384-2f399cb07421",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b18de91b-be1c-4214-bf08-65572b645157",
+              "name": "employeeName",
+              "value": "Bhavani",
+              "type": "string"
+            },
+            {
+              "id": "6f17f351-d07e-41c1-b715-746685acec6b",
+              "name": "employeeID",
+              "value": "EMP001",
+              "type": "string"
+            },
+            {
+              "id": "5a6f18ae-1d8d-4d98-a983-0ca2b91f5083",
+              "name": "city",
+              "value": "Tirupati",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -320,
+        -128
+      ],
+      "id": "c81e83e7-0224-4b97-b7b1-3d80221916ca",
+      "name": "Employee Details"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8cfb41dc-559d-4bc9-b6f7-635842abaea1",
+              "name": "department",
+              "value": "Automation",
+              "type": "string"
+            },
+            {
+              "id": "7d0c0b4d-1b3d-4ed7-afb4-70b1abeaa9fe",
+              "name": "manager",
+              "value": "Vinay",
+              "type": "string"
+            },
+            {
+              "id": "4140df12-9734-4c4e-9c80-072c113c6d40",
+              "name": "location",
+              "value": "Banglore",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -256,
+        80
+      ],
+      "id": "c9ad1d7b-fb85-48ea-9364-37ce74b95d71",
+      "name": "Department Details"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {
+          "includeUnpaired": true
+        }
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -16,
+        128
+      ],
+      "id": "98187f60-e88c-410b-af98-b83d9f69b3f2",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fa7be791-b36b-4e69-9129-04c151d780e4",
+              "name": "profileSummary",
+              "value": "={{ $json.employeeName + \" works in \" + $json.department + \" department under manager \" + $json.manager }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        128
+      ],
+      "id": "0f683bb3-5ca4-43b3-bcbf-2b19db851feb",
+      "name": "Profile Builder"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Employee Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Employee Details": {
+      "main": [
+        [
+          {
+            "node": "Department Details",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Department Details": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Profile Builder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "5ba33cd7-feb4-4782-8a25-2515e3edde7a",
+  "meta": {
+    "instanceId": "df90ae04ddd986792c0a3001b91a21bd70fc589ecbafd22fa3754354a603c075"
+  },
+  "nodeGroups": [],
+  "id": "O3E0JBDsPoWbtdiO",
+  "tags": []
+}
